@@ -16,9 +16,9 @@ module "vpc" {
 }
 
 module "s3" {
-  source      = "./modules/s3"
-  bucket_name = "terraform-poc-bucket-${random_id.bucket_id.hex}"
+  source = "./modules/s3"
 }
+
 
 resource "random_id" "bucket_id" {
   byte_length = 4
