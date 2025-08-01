@@ -3,16 +3,28 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      python: 3.8
+      python: 3.11
     commands:
-      - curl -O https://releases.hashicorp.com/terraform/1.8.0/terraform_1.8.0_linux_amd64.zip
-      - unzip terraform_1.8.0_linux_amd64.zip
+      - echo Installing Terraform...
+      - curl -o terraform.zip https://releases.hashicorp.com/terraform/1.8.4/terraform_1.8.4_linux_amd64.zip
+      - unzip terraform.zip
       - mv terraform /usr/local/bin/
+      - terraform -version
+
   pre_build:
     commands:
-      - echo "Initializing Terraform..."
+      - echo Initializing Terraform...
       - terraform init
+
   build:
     commands:
-      - echo "Destroying infrastructure..."
+      - echo Applying infrastructure...
+      - terraform apply -auto-approve
+      - echo Sleeping 30 seconds for any async setup...
+      - sleep 30
+      - echo Destroying infrastructure...
       - terraform destroy -auto-approve
+
+artifacts:
+  files:
+    - '**/*'
