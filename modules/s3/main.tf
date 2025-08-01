@@ -1,19 +1,24 @@
+variable "bucket_name" {
+  description = "The name of the S3 bucket to create"
+  default     = "terraform-created-bucket-banita-${random_id.bucket_suffix.hex}"
+}
+
+resource "random_id" "bucket_suffix" {
+  byte_length = 4
+}
+
 resource "aws_s3_bucket" "bucket" {
   bucket = var.bucket_name
-  force_destroy = true  # Optional: allows auto-deletion even if bucket is not empty
+  acl    = "private"
 
   tags = {
-    Name        = "terraform-created-bucket"
-    Environment = "dev"
-    CreatedBy   = "Terraform"
+    Name      = var.bucket_name
+    CreatedBy = "Terraform"
+    Owner     = "banita"
+    Purpose   = "State Storage"
   }
 }
 
 output "bucket_name" {
   value = aws_s3_bucket.bucket.id
-}
-
-variable "bucket_name" {
-  description = "Name of the S3 bucket"
-  type        = string
 }
