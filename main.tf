@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket = "terraform-poc-bucket-87d9f6e3"   # existing S3 bucket you created
+    bucket = "storethestate"   # existing S3 bucket you created
     key    = "terraform.tfstate"
     region = "eu-central-1"
   }
