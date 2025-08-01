@@ -18,13 +18,5 @@ phases:
 
   build:
     commands:
-      - echo Applying infrastructure...
-      - terraform apply -auto-approve
-      - echo Sleeping 30 seconds for any async setup...
-      - sleep 30
-      - echo Destroying infrastructure...
-      - terraform destroy -auto-approve
-
-artifacts:
-  files:
-    - '**/*'
+      - echo Planning destroy...
+      - terraform plan -destroy
