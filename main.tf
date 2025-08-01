@@ -1,10 +1,11 @@
 terraform {
   backend "s3" {
-    bucket = "storethestate"   # existing S3 bucket you created
-    key    = "terraform.tfstate"
+    bucket = "storethestate"
+    key    = "state/s3-module/terraform.tfstate"
     region = "eu-central-1"
   }
 }
+
 
 provider "aws" {
   region = var.aws_region
